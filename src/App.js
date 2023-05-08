@@ -1,5 +1,5 @@
 import React from 'react';
-import MemberList from './components/MemberList';
+import MemberListShow from './components/MemberListShow';
 import NavBar from './components/NavBar';
 
 const App = () => {
@@ -11,7 +11,11 @@ const App = () => {
               lastname:'Abdala',
               DOB:"1986-08-22",
               phone:"813-992-3920",
-              address:"2166 Broadway View Ave",
+              address1:"2166 Broadway View Ave",
+              address2:"around",
+              city:"Tampa",
+              state:"FL",
+              zipcode:"33510",
               isMember:true},
           {
               id:2,
@@ -19,7 +23,11 @@ const App = () => {
               lastname:'Anchique',
               DOB:'1989-10-31',
               phone:"813-992-3920",
-              address:"2166 Broadway View Ave",
+              address1:"2166 Broadway View Ave",
+              address2:"around",
+              city:"Tampa",
+              state:"FL",
+              zipcode:"33510",
               isMember:true
           },
           {
@@ -28,15 +36,33 @@ const App = () => {
               lastname:'Cruz',
               DOB:'2004-06-31',
               phone:'813-992-3920',
-              address:"The ghetto",
+              address1:"The ghetto",
+              address2:"around",
+              city:"Tampa",
+              state:"FL",
+              zipcode:"33510",
               isMember:true
           },
+          {
+              id:4,
+              firstname:'Laura',
+              lastname:'Anchique',
+              DOB:'1993-06-31',
+              phone:'813-992-3920',
+              address1:"Seattle",
+              address2:"around",
+              city:"Tampa",
+              state:"FL",
+              zipcode:"33510",
+              isMember:true
+          },
+
       ]
        
      return (
      <>
         <NavBar/>
-        <MemberList members={members}/>
+        <MemberListShow members={members}/>
      </>
      )
 }
