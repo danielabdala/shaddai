@@ -3,12 +3,12 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container'; 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
  
-const AddMember = ({onCancel, members}) => 
+const AddMember = ({onCancel,onSubmit,members}) => 
 { 
 
-    const [currentMembers, setCurrentMembers] = useState([])
+    const [currentMembers, setCurrentMembers] = useState(members)
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
@@ -17,33 +17,30 @@ const AddMember = ({onCancel, members}) =>
     const [addressLine2, setAddressLine2] = useState('')
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
-    const [zip, setZip] = useState('')
-    const [memberId, setMemberId] = useState(members.lenght + 1)
- 
+    const [zip, setZip] = useState('') 
 
     const handleCancelClick = () =>
     {
-        onCancel()
+        onCancel() //goes back to membershowlist module
     }
 
     const handleFirstNameChange = (event) =>
-    {
- 
-        setFirstName(event.target.value)
+    { 
+        setFirstName(event.target.value) 
     }
 
     const handleLastNameChange = (event) =>
     {
-        setLastName(event.target.value)
+        setLastName(event.target.value) 
     }
 
     const handlePhoneNumberChange = (event) =>
     {
-        setPhoneNumber(event.target.value)
+        setPhoneNumber(event.target.value) 
     }
     const handleDobChange= (event) =>
     {
-        setDob(event.target.value)
+        setDob(event.target.value) 
     }
     const handleAddressLine1Change = (event) =>
     {
@@ -59,22 +56,19 @@ const AddMember = ({onCancel, members}) =>
     }
     const handleStateChange = (event) =>
     { 
-        setState(event.target.value) 
-
+        setState(event.target.value)  
     }
     const handleZipChange = (event) =>
     {
         setZip(event.target.value)
-    }
-
-    const handleSubmit = (event) => {
-
-        console.log("currentMembers now:",currentMembers)
+    } 
+    
+    const handleSubmit = (event) => { 
         
         event.preventDefault();
 
-        const newMember = {
-            id:memberId,
+        const newMember = { 
+            id:Math.round(Math.random() * 9999), //assign random id to member's id
             firstname:firstName,
             lastname:lastName,
             DOB:dob,
@@ -86,22 +80,17 @@ const AddMember = ({onCancel, members}) =>
             zipcode:zip,
             isMember:true
         }
-       
-        const updatedMembers = [...currentMembers, newMember]
-
-        console.log("updatedMembers Now", updatedMembers)
-
+  
+        const updatedMembers = [...currentMembers, newMember]  
         setCurrentMembers(updatedMembers) 
-
-        console.log("currentMembers now 2:",currentMembers)
-        // this part is not working !!! 
+        onSubmit(newMember) // it executes call back function in app module which update members state
+         
     }
-
-
+ 
     const STATES = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
         
     let state_selection = STATES.map((state) => {
-    return <option value={state}>{state}</option>
+    return <option key={state} value={state}>{state}</option>
 });
 
    

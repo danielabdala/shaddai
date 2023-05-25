@@ -1,12 +1,12 @@
-import React from 'react';
+import React,{useState} from 'react';
 import MemberListShow from './components/MemberListShow';
 import NavBar from './components/NavBar';
 
 const App = () => {
 
-     const members = [
+     const temp_members = [
           {
-              id:1,
+              id:Math.round(Math.random() * 9999), //assign random id to member's id
               firstname:'Daniel',
               lastname:'Abdala',
               DOB:"1986-08-22",
@@ -18,7 +18,7 @@ const App = () => {
               zipcode:"33510",
               isMember:true},
           {
-              id:2,
+              id:Math.round(Math.random() * 9999), //assign random id to member's id
               firstname:'Melisa',
               lastname:'Anchique',
               DOB:'1989-10-31',
@@ -31,7 +31,7 @@ const App = () => {
               isMember:true
           },
           {
-              id:3,
+              id:Math.round(Math.random() * 9999), //assign random id to member's id
               firstname:'Elmer',
               lastname:'Cruz',
               DOB:'2004-06-31',
@@ -44,7 +44,7 @@ const App = () => {
               isMember:true
           },
           {
-              id:4,
+              id:Math.round(Math.random() * 9999), //assign random id to member's id
               firstname:'Laura',
               lastname:'Anchique',
               DOB:'1993-06-31',
@@ -58,11 +58,35 @@ const App = () => {
           },
 
       ]
-       
+
+      const [members, setMembers] = useState(temp_members)
+
+      const handleAdd = (newMember) =>
+      { 
+         
+        const updatedMembers = [...members, newMember];
+        setMembers(updatedMembers);
+        
+        return;
+      }
+
+      const handleEdit = (editedMember) =>
+      {
+        const updatedMembers = members.map((member) => {
+            if(member.id === editedMember.id)
+            {
+                return {...editedMember}
+            } 
+            return member;
+        });
+
+        setMembers(updatedMembers);
+      }
+ 
      return (
      <>
         <NavBar/>
-        <MemberListShow members={members}/>
+        <MemberListShow members={members} onAdd={handleAdd} onEdit={handleEdit}/>
      </>
      )
 }

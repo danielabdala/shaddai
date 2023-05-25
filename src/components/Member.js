@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Form from 'react-bootstrap/Form';
 
 
 const Member = ({member,onCheck}) =>
 {  
-  
+     
     const handleClick = (event) =>
     { 
         onCheck(event.target.checked,member.id)  
+        // console.log("event",event)
     }  
     
     let content =  
