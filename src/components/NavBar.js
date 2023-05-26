@@ -10,9 +10,9 @@ function NavBar() {
         <Container>
           <Navbar.Brand href="#home">Test 1</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Test 2</Nav.Link>
+            {/* <Nav.Link href="#home">Test 2</Nav.Link>
             <Nav.Link href="#features">Test 3</Nav.Link>
-            <Nav.Link href="#pricing">Test 4</Nav.Link>
+            <Nav.Link href="#pricing">Test 4</Nav.Link> */}
           </Nav>
         </Container>
       </Navbar>

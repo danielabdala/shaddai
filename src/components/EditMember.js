@@ -8,8 +8,6 @@ import { useState } from 'react'
 
  const EditMember = ({onCancel,onSubmit,member}) => { 
 
-     console.log("here comes the member!",member)
-    // const [currentMembers, setCurrentMembers] = useState(members)
     const [firstName, setFirstName] = useState(member.firstname)
     const [lastName, setLastName] = useState(member.lastname)
     const [phoneNumber, setPhoneNumber] = useState(member.phone)
@@ -65,8 +63,7 @@ import { useState } from 'react'
         setZip(event.target.value)
     } 
     
-    const handleSubmit = (event) => { 
-        
+    const handleSubmit = (event) => {  
          
         event.preventDefault();
 
@@ -82,9 +79,7 @@ import { useState } from 'react'
             state:state,
             zipcode:zip,
             isMember:member.isMember
-        }
-  
-      
+        }  
         onSubmit(updatedMember) // it executes call back function in app module which update members state
          
     }

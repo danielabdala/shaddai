@@ -82,11 +82,26 @@ const App = () => {
 
         setMembers(updatedMembers);
       }
+
+      const handleDelete = (memberToDelete) =>
+      {
+        console.log("member to delete",memberToDelete)
+
+        console.log("current members", members)
+
+        const updatedMembers = members.filter((member) =>
+            {
+                return member.id !== memberToDelete.id 
+                  
+            }); 
+        setMembers(updatedMembers);
+      } 
+       
  
      return (
      <>
         <NavBar/>
-        <MemberListShow members={members} onAdd={handleAdd} onEdit={handleEdit}/>
+        <MemberListShow members={members} onAdd={handleAdd} onEdit={handleEdit} onDelete={handleDelete}/>
      </>
      )
 }

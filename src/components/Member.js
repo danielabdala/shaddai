@@ -1,26 +1,32 @@
 import React from 'react';
-import Form from 'react-bootstrap/Form';
+import { AiOutlineEdit } from 'react-icons/ai';
+import { RiDeleteBin6Line } from 'react-icons/ri'
 
-
-const Member = ({member,onCheck}) =>
+const Member = ({member,onEdit,onDelete}) =>
 {  
      
-    const handleClick = (event) =>
-    { 
-        onCheck(event.target.checked,member.id)  
-        // console.log("event",event)
+    const handledEditClick = () =>
+    {  
+        onEdit(member) 
     }  
+
+    const handleDeleteClick = () =>
+    {
+         
+        onDelete(member)
+    }
     
-    let content =  
-    <tr>
-        <td>{member.id}</td>
-        <td>{member.firstname}</td>
-        <td>{member.lastname}</td>
-        <td>{member.phone}</td>
-        <td><Form.Check aria-label="option 1" onClick={handleClick}/></td>
-    </tr> 
+    let content =   
+                <tr> 
+                    <td>{member.firstname}</td>
+                    <td>{member.lastname}</td>
+                    <td>{member.phone}</td>
+                    <td>{member.DOB}</td>
+                    <td><AiOutlineEdit title="Edit" onClick={handledEditClick}/>{' '}<RiDeleteBin6Line title="Delete" onClick={handleDeleteClick}/></td>
+                </tr> 
     
     return <>{content}</>;  
 }
 
 export default Member;
+
