@@ -75,12 +75,27 @@ const MemberListShow = ({members,onAdd, onEdit, onDelete}) => {
       return ( 
       <Member key={member.id} member={member} onEdit={handleShowEditForm} onDelete={handleShowDeleteForm}/> 
        )  
-    } );     
+    } );      
+
+    let delete_modal = <DeleteMemberConfirmation show={showDeleteModal} onClose={handleDeleteModal_OnClose} onSubmit={handleDeleteModal_OnSubmit}></DeleteMemberConfirmation> 
  
-
-    let modal = <DeleteMemberConfirmation show={showDeleteModal} onClose={handleDeleteModal_OnClose} onSubmit={handleDeleteModal_OnSubmit}></DeleteMemberConfirmation> 
-
-    let main_content =     
+    let main_content =   <div>  <Row>
+             
+            <Col></Col>
+         
+        <Col xs={8}>
+        <Form>
+            <Form.Group as={Row} className="mb-3">
+                <Col>
+                    <Button variant="primary" onClick={handleAddForm_ShowOrHide}>Add Member</Button>
+                </Col>
+            </Form.Group>
+        </Form>
+        </Col>
+       
+        <Col></Col>
+       
+        </Row>  
         <Row>
         <Col></Col>
            <Col xs={8}>
@@ -98,44 +113,32 @@ const MemberListShow = ({members,onAdd, onEdit, onDelete}) => {
                     {renderedMembers}
                 </tbody>
             </Table>
-            <Row>
-                <Col></Col>
-            <Col>
-            <Form>
-                <Form.Group as={Row} className="mb-3">
-                    <Col>
-                        <Button variant="primary" onClick={handleAddForm_ShowOrHide}>Add Member</Button>{' '} 
-                    </Col>
-                </Form.Group>
-            </Form>
-            </Col>
-            <Col></Col>
-            </Row>
+           
            </Col>
           <Col></Col>
             </Row>
-     
+            </div>
         
 
-    let content = showDeleteModal ? <div><Container>{main_content}{modal}</Container></div>  :  <Container>{main_content}</Container> 
+    let content = showDeleteModal ? <div><Container>{main_content}{delete_modal}</Container></div> : <Container>{main_content}</Container> 
+    
+    // content = showEditForm ? <div><Container>{main_content}{edit_modal}</Container></div> : <Container>{main_content}</Container> 
  
     //if user clicks the add button -> show the add form
     if(showAddForm) 
         content =   <div>
-                        <AddMember onSubmit={handleAddForm_OnSubmit} onCancel={handleAddForm_ShowOrHide} members={members}></AddMember> 
-                    </div> 
-
+                        <AddMember show={showAddForm} onSubmit={handleAddForm_OnSubmit} onCancel={handleAddForm_ShowOrHide} members={members}></AddMember> 
+                    </div>  
     //if users clicks the edit button -> show edit form 
     if(showEditForm) 
-        content =   
-                    <div>
-                        <EditMember onSubmit={handleEditForm_OnSubmit} onCancel={handleEditForm_OnCancel} member={rowToEdit}></EditMember> 
+        content =   <div>
+                        {main_content} 
+                        <EditMember show={showEditForm} onSubmit={handleEditForm_OnSubmit} onCancel={handleEditForm_OnCancel} member={rowToEdit}></EditMember> 
                     </div>  
    
         
     return (
-        <div> 
-          <br/>
+        <div>  
           <br/>
           <br/> 
                 {content} 

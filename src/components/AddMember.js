@@ -3,9 +3,10 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container'; 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
  
-const AddMember = ({onCancel,onSubmit,members}) => 
+const AddMember = ({onCancel,onSubmit,members,show}) => 
 { 
 
     const [currentMembers, setCurrentMembers] = useState(members)
@@ -19,7 +20,7 @@ const AddMember = ({onCancel,onSubmit,members}) =>
     const [state, setState] = useState('')
     const [zip, setZip] = useState('') 
 
-    const handleCancelClick = () =>
+    const handleCancel = () =>
     {
         onCancel() //goes back to membershowlist module
     }
@@ -94,10 +95,15 @@ const AddMember = ({onCancel,onSubmit,members}) =>
 });
 
    
-    return <Container>
+    return  <Modal animation size="lg" show={show} onHide={handleCancel}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Member</Modal.Title>
+        </Modal.Header>
+        <Modal.Body> 
+    <Container>
                <Row>
                <Col></Col>
-               <Col xs={6}>
+               <Col xs={10}>
                         <Form onSubmit={handleSubmit}>
                             <Form.Group className="mb-3">
                                 <Form.Label>First Name</Form.Label>
@@ -152,19 +158,29 @@ const AddMember = ({onCancel,onSubmit,members}) =>
                                 <Form.Text className="text-muted"> 
                                 </Form.Text>
                             </Form.Group>   
-                            <Form.Group as={Row} className="mb-3">
+                            {/* <Form.Group as={Row} className="mb-3">
                             <Col></Col>
                                 <Col xs={8}> 
                                 <Button type="submit" variant="primary">Add</Button>{' '}  
                                 <Button variant="danger" onClick={handleCancelClick}>Cancel</Button> 
                                 </Col> 
-                            </Form.Group>
+                            </Form.Group> */}
                 </Form> 
                 </Col>
                 <Col> 
                 </Col>
                 </Row>
         </Container>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCancel}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleSubmit}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     
  
 }

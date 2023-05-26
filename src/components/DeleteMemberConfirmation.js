@@ -4,10 +4,14 @@ import Button from 'react-bootstrap/Button';
 
 const DeleteMemberConfirmation = (props) =>
 {
+
+    console.log(props.member)
     return (
-        <Modal
+        <Modal 
         {...props}
-        size="lg"
+        size="sm"
+        onHide={props.onClose}
+        animation
         aria-labelledby="contained-modal-title-vcenter"
         centered
         > 
@@ -18,7 +22,7 @@ const DeleteMemberConfirmation = (props) =>
                 </Modal.Header>
                 <Modal.Body> 
                     <p>
-                    Are you sure you want to delete this entry?
+                    Are you sure you want to delete this entry ?
                     </p>
                 </Modal.Body>
                 <Modal.Footer>
