@@ -1,0 +1,10 @@
+show details of member when clicking on a member row
+
+tool tip for edit and delete 
+
+validation for edit and add
+
+when deleting, show details of the member to be deleted.
+
+create css file to center and align td for actions column and th for all columns.
+
