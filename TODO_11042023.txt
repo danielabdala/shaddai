@@ -1,10 +1,11 @@
 show details of member when clicking on a member row
 
-tool tip for edit and delete 
+tool tip for edit and delete (done) 12/09
 
 validation for edit and add
 
-when deleting, show details of the member to be deleted.
+Show confirmation when deleting and editing member
 
-create css file to center and align td for actions column and th for all columns.
+when deleting, show details of the member to be deleted. (done) 12/09
+
 

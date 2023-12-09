@@ -15,8 +15,20 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [rowToEdit, setRowToEdit] = useState({});
-  const [rowToDelete, setRowToDelete] = useState([]);
+  const [selectedMember, setSelectedMember] = useState({});
+
+  const handleSelectedRow_OnClick = (member, type) => {
+    console.log("Type is ", type);
+    setSelectedMember(member);
+
+    if (type === "Delete") {
+      setShowDeleteModal(!showDeleteModal);
+    }
+
+    if (type === "Edit") {
+      setShowEditForm(!showEditForm);
+    }
+  };
 
   //***ADD FUNCTIONS ***//
 
@@ -31,14 +43,8 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
 
   //***DELETE FUNCTIONS ***//
 
-  const handleShowDeleteForm = (member) => {
-    setRowToDelete(member);
-    console.log("row to be deleted:", rowToDelete);
-    setShowDeleteModal(!showDeleteModal);
-  };
-
   const handleDeleteModal_OnSubmit = () => {
-    onDelete(rowToDelete);
+    onDelete(selectedMember);
     setShowDeleteModal(!showDeleteModal);
   };
   const handleDeleteModal_OnClose = () => {
@@ -46,11 +52,6 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
   };
 
   //*****EDIT FUNCTIONS *****/
-
-  const handleShowEditForm = (member) => {
-    setRowToEdit(member); // This sets the rowToEdit variable with the member value which is sent over as props to the EditMember Component
-    setShowEditForm(!showEditForm); //check if state can just be false directly
-  };
 
   const handleEditForm_OnCancel = () => {
     setShowEditForm(!showEditForm); //check if state can just be false directly
@@ -66,8 +67,7 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
       <Member
         key={member.id}
         member={member}
-        onEdit={handleShowEditForm}
-        onDelete={handleShowDeleteForm}
+        onClick={handleSelectedRow_OnClick}
       />
     );
   });
@@ -77,6 +77,7 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
       show={showDeleteModal}
       onClose={handleDeleteModal_OnClose}
       onSubmit={handleDeleteModal_OnSubmit}
+      member={selectedMember}
     ></DeleteMemberConfirmation>
   );
 
@@ -157,7 +158,7 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
           show={showEditForm}
           onSubmit={handleEditForm_OnSubmit}
           onCancel={handleEditForm_OnCancel}
-          member={rowToEdit}
+          member={selectedMember}
         ></EditMember>
       </div>
     );
