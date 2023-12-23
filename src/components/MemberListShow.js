@@ -9,20 +9,27 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import DeleteMemberConfirmation from "./DeleteMemberConfirmation";
+import DeleteMemberWarning from "./DeleteMemberWarning";
+import EditMemberConfirmation from "./EditMemberConfirmation";
+import AddMemberConfirmation from "./AddMemberConfirmation";
 import "../css/Form.css";
 
 const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [selectedMember, setSelectedMember] = useState({});
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [showAddConfirmation, setShowAddConfirmation] = useState(false);
+  const [showEditConfirmation, setShowEditConfirmation] = useState(false);
+  const [newMember, setNewMember] = useState({});
 
   const handleSelectedRow_OnClick = (member, type) => {
     console.log("Type is ", type);
     setSelectedMember(member);
 
     if (type === "Delete") {
-      setShowDeleteModal(!showDeleteModal);
+      setShowDeleteWarning(!showDeleteWarning);
     }
 
     if (type === "Edit") {
@@ -39,16 +46,27 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
   const handleAddForm_OnSubmit = (newMember) => {
     setShowAddForm(false);
     onAdd(newMember);
+    setNewMember(newMember);
+    setShowAddConfirmation(!showAddConfirmation);
+  };
+
+  const handleAddConfirmationWarning_OnCloseOrOnSubmit = () => {
+    setShowAddConfirmation(!showAddConfirmation);
   };
 
   //***DELETE FUNCTIONS ***//
 
-  const handleDeleteModal_OnSubmit = () => {
+  const handleDeleteWarning_OnSubmit = () => {
     onDelete(selectedMember);
-    setShowDeleteModal(!showDeleteModal);
+    setShowDeleteWarning(!showDeleteWarning);
+    setShowDeleteConfirmation(!showDeleteConfirmation);
   };
-  const handleDeleteModal_OnClose = () => {
-    setShowDeleteModal(!showDeleteModal);
+  const handleDeleteWarning_OnClose = () => {
+    setShowDeleteWarning(!showDeleteWarning);
+  };
+
+  const handleDeleteConfirmationWarning_OnCloseOrOnSubmit = () => {
+    setShowDeleteConfirmation(!showDeleteConfirmation);
   };
 
   //*****EDIT FUNCTIONS *****/
@@ -60,6 +78,11 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
   const handleEditForm_OnSubmit = (editedMember) => {
     setShowEditForm(false);
     onEdit(editedMember);
+    setShowEditConfirmation(!showEditConfirmation);
+  };
+
+  const handleEditConfirmationWarning_OnCloseOrOnSubmit = () => {
+    setShowEditConfirmation(!showEditConfirmation);
   };
 
   const renderedMembers = members.map((member) => {
@@ -72,16 +95,60 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
     );
   });
 
-  let delete_modal = (
+  let addConfirmation = (
+    <AddMemberConfirmation
+      show={showAddConfirmation}
+      onClose={handleAddConfirmationWarning_OnCloseOrOnSubmit}
+      onSubmit={handleAddConfirmationWarning_OnCloseOrOnSubmit}
+      member={newMember}
+    ></AddMemberConfirmation>
+  );
+
+  let editConfirmation = (
+    <EditMemberConfirmation
+      show={showEditConfirmation}
+      onClose={handleEditConfirmationWarning_OnCloseOrOnSubmit}
+      onSubmit={handleEditConfirmationWarning_OnCloseOrOnSubmit}
+    ></EditMemberConfirmation>
+  );
+
+  let deleteConfirmation = (
     <DeleteMemberConfirmation
-      show={showDeleteModal}
-      onClose={handleDeleteModal_OnClose}
-      onSubmit={handleDeleteModal_OnSubmit}
+      show={showDeleteConfirmation}
       member={selectedMember}
+      onClose={handleDeleteConfirmationWarning_OnCloseOrOnSubmit}
+      onSubmit={handleDeleteConfirmationWarning_OnCloseOrOnSubmit}
     ></DeleteMemberConfirmation>
   );
 
-  let main_content = (
+  let deleteWarning = (
+    <DeleteMemberWarning
+      show={showDeleteWarning}
+      onClose={handleDeleteWarning_OnClose}
+      onSubmit={handleDeleteWarning_OnSubmit}
+      member={selectedMember}
+    ></DeleteMemberWarning>
+  );
+
+  let editForm = (
+    <EditMember
+      show={showEditForm}
+      onSubmit={handleEditForm_OnSubmit}
+      onCancel={handleEditForm_OnCancel}
+      member={selectedMember}
+    ></EditMember>
+  );
+
+  let addForm = (
+    <AddMember
+      show={showAddForm}
+      onSubmit={handleAddForm_OnSubmit}
+      onCancel={handleAddForm_ShowOrHide}
+      members={members}
+    ></AddMember>
+  );
+
+  let mainContent = (
     <div>
       {" "}
       <Row>
@@ -124,42 +191,41 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
     </div>
   );
 
-  let content = showDeleteModal ? (
+  let content = showDeleteWarning ? (
     <div>
       <Container>
-        {main_content}
-        {delete_modal}
+        {mainContent}
+        {deleteWarning}
+        {showDeleteConfirmation && deleteConfirmation}
       </Container>
     </div>
   ) : (
-    <Container>{main_content}</Container>
+    <Container>
+      {mainContent}
+      {showDeleteConfirmation && deleteConfirmation}
+    </Container>
   );
-
-  // content = showEditForm ? <div><Container>{main_content}{edit_modal}</Container></div> : <Container>{main_content}</Container>
 
   //if user clicks the add button -> show the add form
   if (showAddForm)
     content = (
       <div>
-        <AddMember
-          show={showAddForm}
-          onSubmit={handleAddForm_OnSubmit}
-          onCancel={handleAddForm_ShowOrHide}
-          members={members}
-        ></AddMember>
+        <Container>
+          {mainContent}
+          {addForm}
+          {showAddConfirmation && addConfirmation}
+        </Container>
       </div>
     );
   //if users clicks the edit button -> show edit form
   if (showEditForm)
     content = (
       <div>
-        {main_content}
-        <EditMember
-          show={showEditForm}
-          onSubmit={handleEditForm_OnSubmit}
-          onCancel={handleEditForm_OnCancel}
-          member={selectedMember}
-        ></EditMember>
+        <Container>
+          {mainContent}
+          {editForm}
+          {showEditConfirmation && editConfirmation}
+        </Container>
       </div>
     );
 
@@ -168,6 +234,8 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
       <br />
       <br />
       {content}
+      {showEditConfirmation && editConfirmation}
+      {showAddConfirmation && addConfirmation}
     </div>
   );
 };
