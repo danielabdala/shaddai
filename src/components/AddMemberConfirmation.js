@@ -2,8 +2,7 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
-
-const DeleteMemberConfirmation = ({ show, member, onClose }) => {
+const AddMemberConfirmation = ({ show, member, onClose }) => {
   return (
     <Modal
       show={show}
@@ -14,11 +13,11 @@ const DeleteMemberConfirmation = ({ show, member, onClose }) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Delete Confirmation
+          Add Confirmation
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p> {member.firstname + " " + member.lastname} has been deleted</p>
+        <p> {member.firstname + " " + member.lastname} has been added!</p>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={onClose} variant="success">
@@ -29,4 +28,4 @@ const DeleteMemberConfirmation = ({ show, member, onClose }) => {
   );
 };
 
-export default DeleteMemberConfirmation;
+export default AddMemberConfirmation;
