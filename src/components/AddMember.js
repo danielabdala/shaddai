@@ -146,103 +146,115 @@ const AddMember = ({ onCancel, onSubmit, members, show }) => {
             <Col></Col>
             <Col xs={10}>
               <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3">
-                  <Form.Label>First Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={firstName}
-                    onChange={handleFirstNameChange}
-                    placeholder="Enter first name"
-                  />
-                  <Form.Text className="text-muted"></Form.Text>
+                <Form.Group className="mb-3 row">
+                  <Form.Label className="col-md-3">First Name</Form.Label>
+                  <Col className="col-md-9">
+                    <Form.Control
+                      type="text"
+                      value={firstName}
+                      onChange={handleFirstNameChange}
+                      placeholder="Enter first name"
+                    />
+                  </Col>
                 </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Last Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={lastName}
-                    onChange={handleLastNameChange}
-                    placeholder="Enter last name"
-                  />
-                  <Form.Text className="text-muted"></Form.Text>
+
+                <Form.Group className="mb-3 row">
+                  <Form.Label className="col-md-3">Last Name</Form.Label>
+                  <Col className="col-md-9">
+                    <Form.Control
+                      type="text"
+                      value={lastName}
+                      onChange={handleLastNameChange}
+                      placeholder="Enter last name"
+                    />
+                  </Col>
                 </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Phone Number</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={phoneNumber}
-                    onChange={handlePhoneNumberChange}
-                    placeholder="Enter phone number"
-                  />
+
+                <Form.Group className="mb-3 row">
+                  <Form.Label className="col-md-3">Phone Number</Form.Label>
+                  <Col className="col-md-9">
+                    <Form.Control
+                      type="text"
+                      value={phoneNumber}
+                      onChange={handlePhoneNumberChange}
+                      placeholder="Enter phone number"
+                    />
+                  </Col>
                 </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Date of Birth</Form.Label>
-                  <Form.Control
-                    type="date"
-                    value={dob}
-                    onChange={handleDobChange}
-                    placeholder="Enter DOB"
-                  />
-                  <Form.Text className="text-muted"></Form.Text>
+
+                <Form.Group className="mb-3 row">
+                  <Form.Label className="col-md-3">Date of Birth</Form.Label>
+                  <Col className="col-md-9">
+                    <Form.Control
+                      type="date"
+                      value={dob}
+                      onChange={handleDobChange}
+                      placeholder="Enter DOB"
+                    />
+                  </Col>
                 </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Address Line 1</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={addressLine1}
-                    onChange={handleAddressLine1Change}
-                    placeholder="Enter Address"
-                  />
-                  <Form.Text className="text-muted"></Form.Text>
+
+                <Form.Group className="mb-3 row">
+                  <Form.Label className="col-md-3">Address Line 1</Form.Label>
+                  <Col className="col-md-9">
+                    <Form.Control
+                      type="text"
+                      value={addressLine1}
+                      onChange={handleAddressLine1Change}
+                      placeholder="Enter Address"
+                    />
+                  </Col>
                 </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Address Line 2</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={addressLine2}
-                    onChange={handleAddressLine2Change}
-                    placeholder="Apt #"
-                  />
-                  <Form.Text className="text-muted"></Form.Text>
+
+                <Form.Group className="mb-3 row">
+                  <Form.Label className="col-md-3">Address Line 2</Form.Label>
+                  <Col className="col-md-9">
+                    <Form.Control
+                      type="text"
+                      value={addressLine2}
+                      onChange={handleAddressLine2Change}
+                      placeholder="Apt #"
+                    />
+                  </Col>
                 </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>City</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={city}
-                    onChange={handleCityChange}
-                    placeholder="Enter City"
-                  />
-                  <Form.Text className="text-muted"></Form.Text>
+
+                <Form.Group className="mb-3 row">
+                  <Form.Label className="col-md-3">City</Form.Label>
+                  <Col className="col-md-9">
+                    <Form.Control
+                      type="text"
+                      value={city}
+                      onChange={handleCityChange}
+                      placeholder="Enter City"
+                    />
+                  </Col>
                 </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>State</Form.Label>
-                  <Form.Select
-                    onChange={handleStateChange}
-                    value={state}
-                    aria-label="Select State"
-                  >
-                    <option>Select State</option>
-                    {state_selection}
-                  </Form.Select>
+
+                <Form.Group className="mb-3 row">
+                  <Form.Label className="col-md-3">State</Form.Label>
+                  <Col className="col-md-9">
+                    <Form.Select
+                      onChange={handleStateChange}
+                      value={state}
+                      aria-label="Select State"
+                    >
+                      <option>Select State</option>
+                      {state_selection}
+                    </Form.Select>
+                  </Col>
                 </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Zip Code</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={zip}
-                    onChange={handleZipChange}
-                    placeholder="Enter Zip Code"
-                  />
-                  <Form.Text className="text-muted"></Form.Text>
+
+                <Form.Group className="mb-3 row">
+                  <Form.Label className="col-md-3">Zip Code</Form.Label>
+                  <Col className="col-md-9">
+                    <Form.Control
+                      type="text"
+                      value={zip}
+                      onChange={handleZipChange}
+                      placeholder="Enter Zip Code"
+                    />
+                  </Col>
                 </Form.Group>
-                {/* <Form.Group as={Row} className="mb-3">
-                            <Col></Col>
-                                <Col xs={8}> 
-                                <Button type="submit" variant="primary">Add</Button>{' '}  
-                                <Button variant="danger" onClick={handleCancelClick}>Cancel</Button> 
-                                </Col> 
-                            </Form.Group> */}
               </Form>
             </Col>
             <Col></Col>
