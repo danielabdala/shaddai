@@ -1,11 +1,19 @@
-show details of member when clicking on a member row
-
+show details of member when clicking on a member row (done) 12/11
+ 
 tool tip for edit and delete (done) 12/09
 
 validation for edit and add
 
-Show confirmation when deleting and editing member
+Show confirmation when adding, deleting and editing member
+
+Make sure to not expand the background view when editing. (done)
+
+Make the forms more succint (first name next to last name, not one on each row) (done)
+
+Fix details view, make it look flashy
 
 when deleting, show details of the member to be deleted. (done) 12/09
+
+
 
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Member from "./Member";
 import AddMember from "./AddMember";
 import EditMember from "./EditMember";
+import ViewMember from "./ViewMember";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -25,15 +26,23 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
   const [newMember, setNewMember] = useState({});
 
   const handleSelectedRow_OnClick = (member, type) => {
-    console.log("Type is ", type);
     setSelectedMember(member);
 
     if (type === "Delete") {
+
       setShowDeleteWarning(!showDeleteWarning);
+
     }
 
     if (type === "Edit") {
       setShowEditForm(!showEditForm);
+    }
+
+    if (type === "View") {
+      console.log("Im here in view type 2!! You made it");
+      console.log("b4:", showDetailModal);
+      setShowDetailModal(!showDetailModal);
+      console.log("now:", showDetailModal);
     }
   };
 
@@ -54,6 +63,12 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
     setShowAddConfirmation(!showAddConfirmation);
   };
 
+  //** MODALS **/
+
+  const handleDetailModal_OnClose = () => {
+    setShowDetailModal(!showDetailModal);
+  };
+
   //***DELETE FUNCTIONS ***//
 
   const handleDeleteWarning_OnSubmit = () => {
@@ -72,7 +87,7 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
   //*****EDIT FUNCTIONS *****/
 
   const handleEditForm_OnCancel = () => {
-    setShowEditForm(!showEditForm); //check if state can just be false directly
+    setShowEditForm(!showEditForm);
   };
 
   const handleEditForm_OnSubmit = (editedMember) => {
@@ -191,14 +206,17 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
     </div>
   );
 
+
   let content = showDeleteWarning ? (
     <div>
+
       <Container>
         {mainContent}
         {deleteWarning}
         {showDeleteConfirmation && deleteConfirmation}
       </Container>
-    </div>
+
+   </div>
   ) : (
     <Container>
       {mainContent}
