@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Member from "./Member";
 import AddMember from "./AddMember";
 import EditMember from "./EditMember";
+import ViewMember from "./ViewMember";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -14,19 +15,29 @@ import "../css/Form.css";
 const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [showDetailModal, setShowDetailModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedMember, setSelectedMember] = useState({});
 
   const handleSelectedRow_OnClick = (member, type) => {
-    console.log("Type is ", type);
     setSelectedMember(member);
 
     if (type === "Delete") {
+      console.log("Im here in view type 2!! You made it");
+      console.log("b4:", showDeleteModal);
       setShowDeleteModal(!showDeleteModal);
+      console.log("now:", showDeleteModal);
     }
 
     if (type === "Edit") {
       setShowEditForm(!showEditForm);
+    }
+
+    if (type === "View") {
+      console.log("Im here in view type 2!! You made it");
+      console.log("b4:", showDetailModal);
+      setShowDetailModal(!showDetailModal);
+      console.log("now:", showDetailModal);
     }
   };
 
@@ -39,6 +50,12 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
   const handleAddForm_OnSubmit = (newMember) => {
     setShowAddForm(false);
     onAdd(newMember);
+  };
+
+  //** MODALS **/
+
+  const handleDetailModal_OnClose = () => {
+    setShowDetailModal(!showDetailModal);
   };
 
   //***DELETE FUNCTIONS ***//
@@ -54,7 +71,7 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
   //*****EDIT FUNCTIONS *****/
 
   const handleEditForm_OnCancel = () => {
-    setShowEditForm(!showEditForm); //check if state can just be false directly
+    setShowEditForm(!showEditForm);
   };
 
   const handleEditForm_OnSubmit = (editedMember) => {
@@ -79,6 +96,14 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
       onSubmit={handleDeleteModal_OnSubmit}
       member={selectedMember}
     ></DeleteMemberConfirmation>
+  );
+
+  let detail_modal = (
+    <ViewMember
+      show={showDetailModal}
+      onClose={handleDetailModal_OnClose}
+      member={selectedMember}
+    ></ViewMember>
   );
 
   let main_content = (
@@ -124,19 +149,27 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
     </div>
   );
 
-  let content = showDeleteModal ? (
-    <div>
+  let content;
+
+  if (showDetailModal) {
+    content = (
+      <div>
+        <Container>
+          {main_content}
+          {detail_modal}
+        </Container>
+      </div>
+    );
+  } else if (showDeleteModal) {
+    content = (
       <Container>
         {main_content}
         {delete_modal}
       </Container>
-    </div>
-  ) : (
-    <Container>{main_content}</Container>
-  );
-
-  // content = showEditForm ? <div><Container>{main_content}{edit_modal}</Container></div> : <Container>{main_content}</Container>
-
+    );
+  } else {
+    content = <Container>{main_content}</Container>;
+  }
   //if user clicks the add button -> show the add form
   if (showAddForm)
     content = (
@@ -153,7 +186,7 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
   if (showEditForm)
     content = (
       <div>
-        {main_content}
+        {/* {main_content} */}
         <EditMember
           show={showEditForm}
           onSubmit={handleEditForm_OnSubmit}

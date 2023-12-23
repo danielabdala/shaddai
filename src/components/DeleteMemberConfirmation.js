@@ -3,11 +3,9 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
 const DeleteMemberConfirmation = (props) => {
-  console.log(props.member);
-  console.log(props.member.firstname);
   return (
     <Modal
-      {...props}
+      show={props.show}
       size="sm"
       onHide={props.onClose}
       animation
