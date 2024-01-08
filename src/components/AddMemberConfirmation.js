@@ -12,12 +12,13 @@ const AddMemberConfirmation = ({ show, member, onClose }) => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Add Confirmation
-        </Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Success</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p> {member.firstname + " " + member.lastname} has been added!</p>
+        <p>
+          {member.firstname + " " + member.lastname} has been added to the list
+          of members.
+        </p>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={onClose} variant="success">

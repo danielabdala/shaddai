@@ -17,8 +17,7 @@ const DeleteMemberWarning = (props) => {
       </Modal.Header>
       <Modal.Body>
         <p>
-          Are you sure you want to delete this member:{" "}
-          {props.member.firstname + " " + props.member.lastname}?
+          Delete member {props.member.firstname + " " + props.member.lastname}?
         </p>
       </Modal.Body>
       <Modal.Footer>

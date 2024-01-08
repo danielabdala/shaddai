@@ -12,9 +12,7 @@ const EditMemberConfirmation = ({ show, onClose }) => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Edit Confirmation
-        </Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Success</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p>Your changes have been saved.</p>

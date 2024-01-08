@@ -24,14 +24,13 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
   const [showAddConfirmation, setShowAddConfirmation] = useState(false);
   const [showEditConfirmation, setShowEditConfirmation] = useState(false);
   const [newMember, setNewMember] = useState({});
+  const [showDetail, setShowDetail] = useState(false);
 
   const handleSelectedRow_OnClick = (member, type) => {
     setSelectedMember(member);
 
     if (type === "Delete") {
-
       setShowDeleteWarning(!showDeleteWarning);
-
     }
 
     if (type === "Edit") {
@@ -40,9 +39,9 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
 
     if (type === "View") {
       console.log("Im here in view type 2!! You made it");
-      console.log("b4:", showDetailModal);
-      setShowDetailModal(!showDetailModal);
-      console.log("now:", showDetailModal);
+      console.log("b4:", showDetail);
+      setShowDetail(!showDetail);
+      console.log("now:", showDetail);
     }
   };
 
@@ -66,7 +65,7 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
   //** MODALS **/
 
   const handleDetailModal_OnClose = () => {
-    setShowDetailModal(!showDetailModal);
+    setShowDetail(!showDetail);
   };
 
   //***DELETE FUNCTIONS ***//
@@ -117,6 +116,14 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
       onSubmit={handleAddConfirmationWarning_OnCloseOrOnSubmit}
       member={newMember}
     ></AddMemberConfirmation>
+  );
+
+  let detailModal = (
+    <ViewMember
+      show={showDetail}
+      onClose={handleDetailModal_OnClose}
+      member={selectedMember}
+    ></ViewMember>
   );
 
   let editConfirmation = (
@@ -206,17 +213,14 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
     </div>
   );
 
-
   let content = showDeleteWarning ? (
     <div>
-
       <Container>
         {mainContent}
         {deleteWarning}
         {showDeleteConfirmation && deleteConfirmation}
       </Container>
-
-   </div>
+    </div>
   ) : (
     <Container>
       {mainContent}
@@ -254,6 +258,7 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
       {content}
       {showEditConfirmation && editConfirmation}
       {showAddConfirmation && addConfirmation}
+      {showDetail && detailModal}
     </div>
   );
 };
