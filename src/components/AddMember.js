@@ -5,8 +5,42 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const AddMember = ({ onCancel, onSubmit, members, show }) => {
+  const validationSchemaForAddForm = Yup.object({
+    firstName: Yup.string().required("First Name is required"),
+    lastName: Yup.string().required("Last Name is required"),
+    phoneNumber: Yup.string()
+      .matches(/^[0-9]{10}$/, "Invalid phone number")
+      .required("Phone number is required"),
+    dob: Yup.date()
+      .max(new Date(), "Date of birth must be in the past")
+      .required("Date of birth is required"),
+    addressLine1: Yup.string().required("Address Line 1 is required."),
+    addressLine2: Yup.string().required("Address Line 2 is required."),
+    city: Yup.string().required("City is required."),
+    // state: Yup.string().required("State is required"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      dob: "",
+      addressLine1: "",
+      addressLine2: "",
+      city: "",
+      // state: "",
+    },
+    validationSchema: validationSchemaForAddForm,
+    onSubmit: (values) => {
+      console.log("Form submitted with values:", values);
+    },
+  });
+
   const [currentMembers, setCurrentMembers] = useState(members);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -24,29 +58,37 @@ const AddMember = ({ onCancel, onSubmit, members, show }) => {
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
+    formik.handleChange(event);
   };
 
   const handleLastNameChange = (event) => {
     setLastName(event.target.value);
+    formik.handleChange(event);
   };
 
   const handlePhoneNumberChange = (event) => {
     setPhoneNumber(event.target.value);
+    formik.handleChange(event);
   };
   const handleDobChange = (event) => {
     setDob(event.target.value);
+    formik.handleChange(event);
   };
   const handleAddressLine1Change = (event) => {
     setAddressLine1(event.target.value);
+    formik.handleChange(event);
   };
   const handleAddressLine2Change = (event) => {
     setAddressLine2(event.target.value);
+    formik.handleChange(event);
   };
   const handleCityChange = (event) => {
     setCity(event.target.value);
+    formik.handleChange(event);
   };
   const handleStateChange = (event) => {
     setState(event.target.value);
+    // formik.handleChange(event);
   };
   const handleZipChange = (event) => {
     setZip(event.target.value);
@@ -145,16 +187,21 @@ const AddMember = ({ onCancel, onSubmit, members, show }) => {
           <Row>
             <Col></Col>
             <Col xs={10}>
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={formik.handleSubmit}>
                 <Form.Group className="mb-3 row">
                   <Form.Label className="col-md-3">First Name</Form.Label>
                   <Col className="col-md-9">
                     <Form.Control
                       type="text"
-                      value={firstName}
+                      name="firstName"
+                      value={formik.values.firstName}
+                      onBlur={formik.handleBlur}
                       onChange={handleFirstNameChange}
                       placeholder="Enter first name"
                     />
+                    {formik.touched.firstName && formik.errors.firstName ? (
+                      <div>{formik.errors.firstName}</div>
+                    ) : null}
                   </Col>
                 </Form.Group>
 
@@ -163,10 +210,14 @@ const AddMember = ({ onCancel, onSubmit, members, show }) => {
                   <Col className="col-md-9">
                     <Form.Control
                       type="text"
-                      value={lastName}
+                      name="lastName"
+                      value={formik.values.lastName}
                       onChange={handleLastNameChange}
                       placeholder="Enter last name"
                     />
+                    {formik.touched.lastName && formik.errors.lastName ? (
+                      <div>{formik.errors.lastName}</div>
+                    ) : null}
                   </Col>
                 </Form.Group>
 
@@ -175,10 +226,14 @@ const AddMember = ({ onCancel, onSubmit, members, show }) => {
                   <Col className="col-md-9">
                     <Form.Control
                       type="text"
-                      value={phoneNumber}
+                      name="phoneNumber"
+                      value={formik.values.phoneNumber}
                       onChange={handlePhoneNumberChange}
                       placeholder="Enter phone number"
                     />
+                    {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
+                      <div>{formik.errors.phoneNumber}</div>
+                    ) : null}
                   </Col>
                 </Form.Group>
 
@@ -187,10 +242,14 @@ const AddMember = ({ onCancel, onSubmit, members, show }) => {
                   <Col className="col-md-9">
                     <Form.Control
                       type="date"
-                      value={dob}
+                      name="dob"
+                      value={formik.values.dob}
                       onChange={handleDobChange}
                       placeholder="Enter DOB"
                     />
+                    {formik.touched.dob && formik.errors.dob ? (
+                      <div>{formik.errors.dob}</div>
+                    ) : null}
                   </Col>
                 </Form.Group>
 
@@ -199,10 +258,15 @@ const AddMember = ({ onCancel, onSubmit, members, show }) => {
                   <Col className="col-md-9">
                     <Form.Control
                       type="text"
-                      value={addressLine1}
+                      name="addressLine1"
+                      value={formik.values.addressLine1}
                       onChange={handleAddressLine1Change}
                       placeholder="Enter Address"
                     />
+                    {formik.touched.addressLine1 &&
+                    formik.errors.addressLine1 ? (
+                      <div>{formik.errors.addressLine1}</div>
+                    ) : null}
                   </Col>
                 </Form.Group>
 
@@ -211,10 +275,15 @@ const AddMember = ({ onCancel, onSubmit, members, show }) => {
                   <Col className="col-md-9">
                     <Form.Control
                       type="text"
-                      value={addressLine2}
+                      name="addressLine2"
+                      value={formik.values.addressLine2}
                       onChange={handleAddressLine2Change}
                       placeholder="Apt #"
                     />
+                    {formik.touched.addressLine2 &&
+                    formik.errors.addressLine2 ? (
+                      <div>{formik.errors.addressLine2}</div>
+                    ) : null}
                   </Col>
                 </Form.Group>
 
@@ -223,10 +292,14 @@ const AddMember = ({ onCancel, onSubmit, members, show }) => {
                   <Col className="col-md-9">
                     <Form.Control
                       type="text"
-                      value={city}
+                      name="city"
+                      value={formik.values.city}
                       onChange={handleCityChange}
                       placeholder="Enter City"
                     />
+                    {formik.touched.city && formik.errors.city ? (
+                      <div>{formik.errors.city}</div>
+                    ) : null}
                   </Col>
                 </Form.Group>
 
@@ -249,6 +322,7 @@ const AddMember = ({ onCancel, onSubmit, members, show }) => {
                   <Col className="col-md-9">
                     <Form.Control
                       type="text"
+                      name="zip"
                       value={zip}
                       onChange={handleZipChange}
                       placeholder="Enter Zip Code"
@@ -265,7 +339,7 @@ const AddMember = ({ onCancel, onSubmit, members, show }) => {
         <Button variant="secondary" onClick={handleCancel}>
           Close
         </Button>
-        <Button variant="primary" onClick={handleSubmit}>
+        <Button variant="primary" type="submit">
           Save Changes
         </Button>
       </Modal.Footer>
