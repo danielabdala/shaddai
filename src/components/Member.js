@@ -12,12 +12,10 @@ const Member = ({ member, onClick }) => {
   };
 
   const handleDeleteOnClick = () => {
-    console.log("Im here in delete type");
     onClick(member, "Delete");
   };
 
   const handleDetailsOnClick = () => {
-    console.log("Im here in view type");
     onClick(member, "View");
   };
 

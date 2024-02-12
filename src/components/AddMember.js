@@ -145,11 +145,12 @@ const AddMember = ({ onCancel, onSubmit, members, show }) => {
           <Row>
             <Col></Col>
             <Col xs={10}>
-              <Form onSubmit={handleSubmit}>
+              <Form noValidate onSubmit={handleSubmit}>
                 <Form.Group className="mb-3 row">
                   <Form.Label className="col-md-3">First Name</Form.Label>
                   <Col className="col-md-9">
                     <Form.Control
+                      required
                       type="text"
                       value={firstName}
                       onChange={handleFirstNameChange}

@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
-import Member from "./Member";
+import React, { useState } from "react";
 import AddMember from "./AddMember";
 import EditMember from "./EditMember";
 import ViewMember from "./ViewMember";
-import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 import DeleteMemberConfirmation from "./DeleteMemberConfirmation";
 import DeleteMemberWarning from "./DeleteMemberWarning";
 import EditMemberConfirmation from "./EditMemberConfirmation";
 import AddMemberConfirmation from "./AddMemberConfirmation";
+import MemberList from "./MemberList";
 import "../css/Form.css";
 
 const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
@@ -38,10 +33,7 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
     }
 
     if (type === "View") {
-      console.log("Im here in view type 2!! You made it");
-      console.log("b4:", showDetail);
       setShowDetail(!showDetail);
-      console.log("now:", showDetail);
     }
   };
 
@@ -98,16 +90,6 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
   const handleEditConfirmationWarning_OnCloseOrOnSubmit = () => {
     setShowEditConfirmation(!showEditConfirmation);
   };
-
-  const renderedMembers = members.map((member) => {
-    return (
-      <Member
-        key={member.id}
-        member={member}
-        onClick={handleSelectedRow_OnClick}
-      />
-    );
-  });
 
   let addConfirmation = (
     <AddMemberConfirmation
@@ -172,44 +154,11 @@ const MemberListShow = ({ members, onAdd, onEdit, onDelete }) => {
 
   let mainContent = (
     <div>
-      {" "}
-      <Row>
-        <Col></Col>
-        <Col></Col>
-      </Row>
-      <Row>
-        <Col></Col>
-        <Col xs={8}>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th className="centered-cell">First Name</th>
-                <th className="centered-cell">Last Name</th>
-                <th className="centered-cell">Phone Number</th>
-                <th className="centered-cell">Birth Day</th>
-                <th className="centered-cell">Actions</th>
-              </tr>
-            </thead>
-            <tbody>{renderedMembers}</tbody>
-          </Table>
-        </Col>
-        <Col></Col>
-      </Row>
-      <Row>
-        <Col></Col>
-        <Col xs={2}>
-          <Form>
-            <Form.Group as={Row} className="mb-3">
-              <Col>
-                <Button variant="primary" onClick={handleAddForm_ShowOrHide}>
-                  Add Member
-                </Button>
-              </Col>
-            </Form.Group>
-          </Form>
-        </Col>
-        <Col></Col>
-      </Row>
+      <MemberList
+        members={members}
+        onAddButtonClick={handleAddForm_ShowOrHide}
+        onRowActionClick={handleSelectedRow_OnClick}
+      ></MemberList>
     </div>
   );
 
